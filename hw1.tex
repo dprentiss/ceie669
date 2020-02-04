@@ -49,12 +49,18 @@ $G = $
     indicates a game between two teams that must be scheduled.}
 \end{figure}
 
-\section{}
+\section{} %2
 
-(i) Show that in a nondirected graph G, the independence number of G  the dominance
-number of G, by showing that every maximal independent set is a dominating set.
+(i) Show that in a nondirected graph $G$, the independence number of $G$ is less
+than the dominance number of $G$, by showing that every maximal independent
+set is a dominating set.
 (ii) Give an example to show that the minimum dominating set is not necessarily
 independent.
+
+\subsubsection{Solution}
+For any graph, a maximal independent set of vertices is a dominating set.
+\begin{proof}
+\end{proof}
 
 \section{}
 
@@ -297,12 +303,22 @@ edges are in forest $F$?
 
 \subsubsection*{Solution}
 
-A forest $F$ of $t$ trees and $v$ vertices has $v-t$ edges.
+A forest, $F$, of $t$ trees and $v$ vertices has $v-t$ edges.
 \begin{proof}
+  Remember that for a tree, $T_i$, with $v_i$ vertices, the number of edges,
+  $e_i$, is $v_i - 1$ edges.
+  For forest $F$ with trees $\{T_1, T_2,...,T_t\}$, the number of vertices is
+  \begin{equation}
+    v = \sum_{i=1}^t v_i.
+  \end{equation}
+  The number of edges, then, is
+  \begin{equation}
+    \sum_{i=1}^t e_i = \sum_{i=1}^t v_i -1 = \sum_{i=1}^t v_i - \sum_{i=1}^t  1 = v - t.
+  \end{equation}
 \end{proof}
 
 \section{} %9
-A classic problem is the ``knight’s tour.''
+A classic problem is the ``knight's tour.''
 On an $n \times n$ chessboard, starting from some
 square, move the knight so that it lands on every space exactly once.
 Show how a graph can be used to solve this problem.
@@ -318,28 +334,28 @@ Illustrate on a 4 by 4 chessboard.
     }
     \draw[blue] (a1) -- (c2);
     \draw[blue] (a1) -- (b3);
-    \draw[blue] (c2) -- (a3);
-    \draw[blue] (c2) -- (b4);
+    \draw (c2) -- (a3);
+    \draw (c2) -- (b4);
     \draw[blue] (c2) -- (d4);
     \draw[blue] (b3) -- (d4);
-    \draw[blue] (b3) -- (d2);
-    \draw[blue] (b3) -- (c1);
-    \draw[blue] (a3) -- (b1);
-    \draw[blue] (a3) -- (c4);
-    \draw[blue] (b4) -- (a2);
-    \draw[blue] (b4) -- (d3);
-    \draw[blue] (d2) -- (b1);
-    \draw[blue] (d2) -- (c4);
-    \draw[blue] (c1) -- (a2);
-    \draw[blue] (c1) -- (d3);
-    \draw[blue] (b1) -- (c3);
-    \draw[blue] (c4) -- (b2);
-    \draw[blue] (a2) -- (c3);
-    \draw[blue] (d3) -- (b2);
-    \draw[blue] (c3) -- (a4);
-    \draw[blue] (c3) -- (d1);
-    \draw[blue] (b2) -- (a4);
-    \draw[blue] (b2) -- (d1);
+    \draw (b3) -- (d2);
+    \draw (b3) -- (c1);
+    \draw (a3) -- (b1);
+    \draw (a3) -- (c4);
+    \draw (b4) -- (a2);
+    \draw (b4) -- (d3);
+    \draw (d2) -- (b1);
+    \draw (d2) -- (c4);
+    \draw (c1) -- (a2);
+    \draw (c1) -- (d3);
+    \draw (b1) -- (c3);
+    \draw (c4) -- (b2);
+    \draw (a2) -- (c3);
+    \draw (d3) -- (b2);
+    \draw[red] (c3) -- (a4);
+    \draw[red] (c3) -- (d1);
+    \draw[red] (b2) -- (a4);
+    \draw[red] (b2) -- (d1);
   \end{tikzpicture}
   \caption{}
 \end{figure}
@@ -359,6 +375,153 @@ Show how to use a graph to solve the following puzzle. Place the numbers 1 throu
 boxes so that no two consecutive numbers are horizontally, vertically, or diagonally adjacent
 to each other.
 \subsubsection*{Solution}
+\begin{figure}[h!]
+  \begin{tikzpicture}
+    \node (a) at (1, 2) {a};
+    \node (b) at (2, 2) {b};
+    \node (c) at (0, 1) {c};
+    \node (d) at (1, 1) {d};
+    \node (e) at (2, 1) {e};
+    \node (f) at (3, 1) {f};
+    \node (g) at (1, 0) {g};
+    \node (h) at (2, 0) {h};
+    \draw (a) -- (b);
+    \draw (a) -- (c);
+    \draw (a) -- (d);
+    \draw (a) -- (e);
+    \draw (b) -- (d);
+    \draw (b) -- (e);
+    \draw (b) -- (f);
+    \draw (c) -- (d);
+    \draw (c) -- (g);
+    \draw (d) -- (e);
+    \draw (d) -- (g);
+    \draw (d) -- (h);
+    \draw (e) -- (f);
+    \draw (e) -- (g);
+    \draw (e) -- (h);
+    \draw (f) -- (h);
+    \draw (g) -- (h);
+  \end{tikzpicture}
+  \begin{tikzpicture}
+    \foreach [count=\i] \number in {1, 2, 3, 4, 5, 6, 7, 8} {
+      \node (\number) at (\i, 0) {\number};
+    }
+    \foreach [count=\i] \number in {1, 2, 3, 4, 5, 6, 7} {
+      \draw (\i+0.15, 0) -- (\i+1-0.15, 0);
+    }
+  \end{tikzpicture}
+  \begin{tikzpicture}
+    \foreach [count=\i] \cell in {a, b, c, d, e, f, g, h} {
+      \node (\cell) at (-360/8*\i+112.5:1.5cm) {\cell};
+    }
+    \draw (a) -- (f);
+    \draw (a) -- (g);
+    \draw (a) -- (h);
+    \draw (b) -- (c);
+    \draw (b) -- (g);
+    \draw (b) -- (h);
+    \draw (c) -- (b);
+    \draw (c) -- (e);
+    \draw (c) -- (f);
+    \draw (c) -- (h);
+    \draw (d) -- (f);
+    \draw (e) -- (c);
+    \draw (e) -- (c);
+    \draw (f) -- (g);
+    \draw (f) -- (g);
+
+    \draw[dotted] (a) -- (b);
+    \draw[dotted] (a) -- (c);
+    \draw[dotted] (a) -- (d);
+    \draw[dotted] (a) -- (e);
+    \draw[dotted] (b) -- (d);
+    \draw[dotted] (b) -- (e);
+    \draw[dotted] (b) -- (f);
+    \draw[dotted] (c) -- (d);
+    \draw[dotted] (c) -- (g);
+    \draw[dotted] (d) -- (e);
+    \draw[dotted] (d) -- (g);
+    \draw[dotted] (d) -- (h);
+    \draw[dotted] (e) -- (f);
+    \draw[dotted] (e) -- (g);
+    \draw[dotted] (e) -- (h);
+    \draw[dotted] (f) -- (h);
+    \draw[dotted] (g) -- (h);
+  \end{tikzpicture}
+  \begin{tikzpicture}
+    \node (a) at (-360/8*1+112.5:1.5cm) {4};
+    \node (b) at (-360/8*2+112.5:1.5cm) {6};
+    \node (c) at (-360/8*3+112.5:1.5cm) {7};
+    \node (d) at (-360/8*4+112.5:1.5cm) {1};
+    \node (e) at (-360/8*5+112.5:1.5cm) {8};
+    \node (f) at (-360/8*6+112.5:1.5cm) {2};
+    \node (g) at (-360/8*7+112.5:1.5cm) {3};
+    \node (h) at (-360/8*8+112.5:1.5cm) {5};
+
+    \draw[dashed] (a) -- (f);
+    \draw (a) -- (g);
+    \draw (a) -- (h);
+    \draw (b) -- (c);
+    \draw[dashed] (b) -- (g);
+    \draw (b) -- (h);
+    \draw (c) -- (b);
+    \draw (c) -- (e);
+    \draw[dashed] (c) -- (f);
+    \draw[dashed] (c) -- (h);
+    \draw (d) -- (f);
+    \draw (e) -- (c);
+    \draw (e) -- (c);
+    \draw (f) -- (g);
+    \draw (f) -- (g);
+
+    \draw[dotted] (a) -- (b);
+    \draw[dotted] (a) -- (c);
+    \draw[dotted] (a) -- (d);
+    \draw[dotted] (a) -- (e);
+    \draw[dotted] (b) -- (d);
+    \draw[dotted] (b) -- (e);
+    \draw[dotted] (b) -- (f);
+    \draw[dotted] (c) -- (d);
+    \draw[dotted] (c) -- (g);
+    \draw[dotted] (d) -- (e);
+    \draw[dotted] (d) -- (g);
+    \draw[dotted] (d) -- (h);
+    \draw[dotted] (e) -- (f);
+    \draw[dotted] (e) -- (g);
+    \draw[dotted] (e) -- (h);
+    \draw[dotted] (f) -- (h);
+    \draw[dotted] (g) -- (h);
+  \end{tikzpicture}
+  \begin{tikzpicture}
+    \node (a) at (1, 2) {4};
+    \node (b) at (2, 2) {6};
+    \node (c) at (0, 1) {7};
+    \node (d) at (1, 1) {1};
+    \node (e) at (2, 1) {8};
+    \node (f) at (3, 1) {2};
+    \node (g) at (1, 0) {3};
+    \node (h) at (2, 0) {5};
+    \draw (a) -- (b);
+    \draw (a) -- (c);
+    \draw (a) -- (d);
+    \draw (a) -- (e);
+    \draw (b) -- (d);
+    \draw (b) -- (e);
+    \draw (b) -- (f);
+    \draw (c) -- (d);
+    \draw (c) -- (g);
+    \draw (d) -- (e);
+    \draw (d) -- (g);
+    \draw (d) -- (h);
+    \draw (e) -- (f);
+    \draw (e) -- (g);
+    \draw (e) -- (h);
+    \draw (f) -- (h);
+    \draw (g) -- (h);
+  \end{tikzpicture}
+  \caption{}
+\end{figure}
 
 \section{}
 Using big O notation, given the worst-case running times of the following four procedures
@@ -368,30 +531,24 @@ as a function of $n$.
 
 \end{document}
 
-\begin{tikzpicture}
-  \graph [circular placement, nodes={draw, circle}] {
-    V -- {L, E}; L -- {B, S}; T -- {E, S};
-  };
-\end{tikzpicture}
-
-    \draw[blue] (a1) -- (c2);
-    \draw[blue] (a1) -- (b3);
-    \draw[blue] (c2) -- (a3);
-    \draw[blue] (c2) -- (b4);
-    \draw[blue] (c2) -- (d4);
-    \draw[blue] (b3) -- (d4);
-    \draw[blue] (b3) -- (d2);
-    \draw[blue] (b3) -- (c1);
-    \draw[blue] (a3) -- (b1);
-    \draw[blue] (a3) -- (c4);
-    \draw[blue] (b4) -- (a2);
-    \draw[blue] (b4) -- (d3);
-    \draw[blue] (d2) -- (b1);
-    \draw[blue] (d2) -- (c4);
-    \draw[blue] (c1) -- (a2);
-    \draw[blue] (c1) -- (d3);
-    \draw[blue] (b1) -- (c3);
-    \draw[blue] (c4) -- (b2);
-    \draw[blue] (a2) -- (c3);
-    \draw[blue] (a2) -- (c3);
-    \draw[blue] (d3) -- (b2);
+\draw[blue] (a1) -- (c2);
+\draw[blue] (a1) -- (b3);
+\draw[blue] (c2) -- (a3);
+\draw[blue] (c2) -- (b4);
+\draw[blue] (c2) -- (d4);
+\draw[blue] (b3) -- (d4);
+\draw[blue] (b3) -- (d2);
+\draw[blue] (b3) -- (c1);
+\draw[blue] (a3) -- (b1);
+\draw[blue] (a3) -- (c4);
+\draw[blue] (b4) -- (a2);
+\draw[blue] (b4) -- (d3);
+\draw[blue] (d2) -- (b1);
+\draw[blue] (d2) -- (c4);
+\draw[blue] (c1) -- (a2);
+\draw[blue] (c1) -- (d3);
+\draw[blue] (b1) -- (c3);
+\draw[blue] (c4) -- (b2);
+\draw[blue] (a2) -- (c3);
+\draw[blue] (a2) -- (c3);
+\draw[blue] (d3) -- (b2);
