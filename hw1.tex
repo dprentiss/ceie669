@@ -22,8 +22,11 @@ represent the games played in one week?
 Give a solution and show that it is optimal.
 
 \subsubsection*{Solution}
-$G = $
-\begin{figure}[h]
+To find an optimal schedule for the remaining league games, begin by creating a
+graph with teams as vertices and edges representing completed games.
+The edges of this graph's compliment represents games that must be scheduled.
+Figure \ref{fig:teams} shows both graphs.
+\begin{figure}[!h]
   \begin{tikzpicture}
     \foreach [count=\i] \team in {B, E, L, S, T, V} {
       \node (\team) at (-60*\i+180:1.5cm) {\team};
@@ -47,6 +50,62 @@ $G = $
   \caption{A graph representing the league games thus far. A solid edge
     indicates the two teams have already played each other, while a dotted edge
     indicates a game between two teams that must be scheduled.}
+  \label{fig:teams}
+\end{figure}
+
+From the compliment, construct a new graph with vertices representing games that
+must be scheduled and edges representing matches that can not be scheduled
+together.
+From this graph we can see that the maximal clique size is four.
+So, any legal 4-coloring of this graph represents an optimal weekly schedule.
+See Figure \ref{fig:games}.
+\begin{figure}[!h]
+  \begin{tikzpicture}
+    \node[fill=red, text=white, circle] (VB) at (-40*1+180:2.5cm) {VB};
+    \node[fill=blue, text=white, circle] (VT) at (-40*2+180:2.5cm) {VT};
+    \node[fill=teal, text=white, circle] (VS) at (-40*3+180:2.5cm) {VS};
+    \node[fill=red, text=white, circle] (SE) at (-40*4+180:2.5cm) {SE};
+    \node[fill=violet, text=white, circle] (SB) at (-40*5+180:2.5cm) {SB};
+    \node[fill=red, text=white, circle] (LT) at (-40*6+180:2.5cm) {LT};
+    \node[fill=teal, text=white, circle] (LE) at (-40*7+180:2.5cm) {LE};
+    \node[fill=teal, text=white, circle] (TB) at (-40*8+180:2.5cm) {TB};
+    \node[fill=blue, text=white, circle] (EB) at (-40*9+180:2.5cm) {EB};
+
+    %\draw (VB) -- (SE);
+    %\draw[blue] (VB) -- (LT);
+    %\draw (VB) -- (LE);
+    %\draw (VT) -- (SE);
+    %\draw (VT) -- (SB);
+    %\draw (VT) -- (LE);
+    %\draw (VT) -- (EB);
+    %\draw[teal] (VS) -- (LT);
+    %\draw (VS) -- (LE);
+    %\draw (VS) -- (TB);
+    %\draw (VS) -- (EB);
+    %\draw[red] (SE) -- (LT);
+    %\draw (SE) -- (TB);
+    %\draw (SE) -- (TB);
+    %\draw[violet] (SB) -- (LT);
+    %\draw (SB) -- (LE);
+    %\draw[orange] (LT) -- (EB);
+    %\draw (LE) -- (TB);
+
+    \draw (VB) -- (VT) -- (VS) -- (VB);
+    \draw (VS) -- (SE) -- (SB) -- (VS);
+    \draw (LT) -- (LE);
+    \draw (VT) -- (LT) -- (TB) -- (VT);
+    \draw (SE) -- (LE) -- (EB) -- (SE);
+    \draw[ultra thick] (VB) -- (SB) -- (TB) -- (EB) -- (VB) -- (TB);
+    \draw[ultra thick] (SB) -- (EB);
+  \end{tikzpicture}
+  \caption{A graph coloring representing an optimal schedule for the remaining
+    league games.
+    Edges connect matches that cannot occur in the same week.
+    Vertices with the same color represent matches that may be scheduled in the
+    same same week.
+    Thick edges connect a maximal clique.
+    }
+    \label{fig:games}
 \end{figure}
 
 \section{} %2
@@ -54,24 +113,43 @@ $G = $
 (i) Show that in a nondirected graph $G$, the independence number of $G$ is less
 than the dominance number of $G$, by showing that every maximal independent
 set is a dominating set.
-(ii) Give an example to show that the minimum dominating set is not necessarily
-independent.
-
-\subsubsection{Solution}
+\subsubsection*{Solution}
 For any graph, a maximal independent set of vertices is a dominating set.
 \begin{proof}
+  If an independent set is maximal, then by definition, there are no other
+  independent vertices that could be added.
+  This set must also be a dominating set since, if there were any vertices not
+  adjacent to it, they would be independent, and therefore the previous set could
+  not have been maximal.
 \end{proof}
+
+(ii) Give an example to show that the minimum dominating set is not necessarily
+independent.
+\subsubsection*{Solution}
+Consider the graphs in Figure 3.
+\begin{figure}[!h]
+  \begin{tikzpicture}
+    \draw (0,0) node[circle, fill=black, draw] -- (1,0) node[circle, fill=red, draw]
+    -- (2,0) node[circle, fill=red,draw] -- (3,0) node[circle, fill=black, draw];
+    \draw (0,1) node[circle, fill=red, draw] -- (1,1) node[circle, fill=black]
+    -- (2,1) node[circle, fill=black] -- (3,1) node[circle, fill=red, draw];
+  \end{tikzpicture}
+  \label{fig:mindom}
+  \caption{
+The red vertices in both graphs are minimum dominating sets, but the upper set is independent while
+the lower one is not.}
+\end{figure}
 
 \section{}
 
-Let $P_1$ and $P2$ be two paths in a graph $G$, and let $G^\prime=P_1 \bigcap P_2$ possess at least 2
+Let $P_1$ and $P_2$ be two paths in a graph $G$, and let $G^\prime=P_1 \cap P_2$ possess at least 2
 vertices.
-Show that if $G^\prime$ is disconnected then $P_1\bigcup P_2$ contains a cycle.
+Show that if $G^\prime$ is disconnected then $P_1\cup P_2$ contains a cycle.
 
 \section{}
 A bipartite graph is given by the following adjacency list: a-1,2,5; b-1,3; c-2-3-5; d-4,5; e2,5,6; f-5,6.
 
-\begin{figure}[h]
+\begin{figure}[!h]
   \begin{tikzpicture}
     \foreach [count=\i] \letter in {a, b, c, d, e, f} {
       \node (\letter) at (\i, 1) {\letter};
@@ -143,27 +221,28 @@ That is, (\{d\},\{4\}) or (\{4\},\{d\}).
 Find the minimum edge coloring. What is a simple lower bound for the edge coloring of a
 graph? Use this to prove that your solution is optimal.
 \subsubsection*{Solution}
-\begin{figure}[h]
+Since the order of vertex ``5'' is 5, any 5-coloring is a minimal edge coloring.
+\begin{figure}[!h]
   \begin{tikzpicture}
     \foreach [count=\i] \letter in {a, b, c, d, e, f} {
       \node (\letter) at (\i, 1) {\letter};
       \node (\i) at (\i, 0) {\i};
     }
-    \draw (a) -- (1);
-    \draw (a) -- (2);
-    \draw (a) -- (5);
-    \draw (b) -- (1);
-    \draw (b) -- (3);
-    \draw (c) -- (2);
-    \draw (c) -- (3);
-    \draw (c) -- (5);
-    \draw (d) -- (4);
-    \draw (d) -- (5);
-    \draw (e) -- (2);
-    \draw (e) -- (5);
-    \draw (e) -- (6);
-    \draw (f) -- (5);
-    \draw (f) -- (6);
+    \draw[teal] (a) -- (1);
+    \draw[blue] (a) -- (2);
+    \draw[red] (a) -- (5);
+    \draw[red] (b) -- (1);
+    \draw[teal] (b) -- (3);
+    \draw[teal] (c) -- (2);
+    \draw[red] (c) -- (3);
+    \draw[blue] (c) -- (5);
+    \draw[red] (d) -- (4);
+    \draw[teal] (d) -- (5);
+    \draw[orange] (e) -- (2);
+    \draw[violet] (e) -- (5);
+    \draw[blue] (e) -- (6);
+    \draw[orange] (f) -- (5);
+    \draw[red] (f) -- (6);
   \end{tikzpicture}
 \end{figure}
 \subsection*{c.}
@@ -281,16 +360,30 @@ minimum spanning tree in G.
 \section{}
 Show that for any graph, $G$, the number of vertices with odd degree is even.
 \begin{proof}
-  Let $G=(V,E)$ have $k$ vertices. For every vertex, $v\in V$ exactly one of the
-  following must be true.
-  The degree of $v$, $\delta(v)$, must be either odd, even, or zero.
-  Since this is true, we may partition the set of vertices in $G$, $V$, into
-  three sets.
-  Let $D\subseteq V$ be the set of vertices with odd degree,
-  $N\subseteq V$ be the set of vertices with even degree,
-  and $I\subseteq V$ be the set of vertices with zero degree.
+  Consider an empty graph with at least two vertices.
+  All vertices are order zero.
+  If an edge is added to the graph, then exactly two of the vertices have order
+  one.
+  These, vertices have odd degree and there is an even number.
 
-  Now consider adding an edge, $e$, to the graph.
+  Now consider an incomplete graph $G$ with $k$ vertices.
+  Every vertex is either odd, even, or disconnected (order zero).
+  If a new edge is added to the graph, there are the following three
+  possibilities
+  \begin{enumerate}
+  \item the edge is added between two vertices with even degree or degree zero,
+  \item the edge is added between two odd vertices, or
+  \item the edge is added between one oven and one odd vertex.
+  \end{enumerate}
+  In case one, two new vertices of odd degree are created.
+  In case two, the number of odd vertices in decreased by two.
+  Int case three, the even vertex becomes odd, the odd vertex becomes even, and
+  the number of odd vertices is unchanged.
+
+  Since a graph with one edge (and trivially zero edges) has an even number of
+  odd vertices, and adding any new edges to a graph adds or removes two (or
+  zero) new edges, then it is not possible to construct a graph with an odd
+  number of odd vertices.
 \end{proof}
 
 \section{}
@@ -325,6 +418,10 @@ Show how a graph can be used to solve this problem.
 Illustrate on a 4 by 4 chessboard.
 
 \subsubsection*{Solution}
+The knight's tour is equivalent to a Hamiltonian path. This may be illustrated
+by a graph who's vertices are the spaces on the chessboard and the edges connect
+spaced that are adjacent with respect to possible knight moves.
+
 \begin{figure}[h]
   \begin{tikzpicture}
     \foreach [count=\i] \row in {1, 2, 3, 4} {
@@ -360,21 +457,10 @@ Illustrate on a 4 by 4 chessboard.
   \caption{}
 \end{figure}
 
-
-\begin{figure}[h]
-\chessboard[
-maxfield=d4,
-showmover=false
-]
-  \caption{}
-\end{figure}
-
-
 \section{}
 Show how to use a graph to solve the following puzzle. Place the numbers 1 through 8 in the
 boxes so that no two consecutive numbers are horizontally, vertically, or diagonally adjacent
 to each other.
-\subsubsection*{Solution}
 \begin{figure}[h!]
   \begin{tikzpicture}
     \node (a) at (1, 2) {a};
@@ -402,14 +488,6 @@ to each other.
     \draw (e) -- (h);
     \draw (f) -- (h);
     \draw (g) -- (h);
-  \end{tikzpicture}
-  \begin{tikzpicture}
-    \foreach [count=\i] \number in {1, 2, 3, 4, 5, 6, 7, 8} {
-      \node (\number) at (\i, 0) {\number};
-    }
-    \foreach [count=\i] \number in {1, 2, 3, 4, 5, 6, 7} {
-      \draw (\i+0.15, 0) -- (\i+1-0.15, 0);
-    }
   \end{tikzpicture}
   \begin{tikzpicture}
     \foreach [count=\i] \cell in {a, b, c, d, e, f, g, h} {
@@ -522,11 +600,6 @@ to each other.
   \end{tikzpicture}
   \caption{}
 \end{figure}
-
-\section{}
-Using big O notation, given the worst-case running times of the following four procedures
-as a function of $n$.
-\subsubsection*{Solution}
 
 
 \end{document}
